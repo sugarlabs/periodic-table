@@ -33,6 +33,7 @@ from gi.repository import EvinceView
 
 EvinceDocument.init()
 
+
 class PDFViewer(EvinceView.View):
 
     def __init__(self):
