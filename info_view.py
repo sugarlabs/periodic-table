@@ -18,7 +18,11 @@
 # Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 # Boston, MA 02111-1307, USA.
 
+import os
+
+from constants import DATA_DIR
 from elements import ELEMENTS_DATA
+from pdf_viewer import PDFViewer
 
 import gi
 gi.require_version("Gtk", "3.0")
@@ -31,5 +35,14 @@ class InfoView(Gtk.VBox):
     def __init__(self):
         Gtk.VBox.__init__(self)
 
-    def load_info(self, element):
-        pass
+        scroll = Gtk.ScrolledWindow()
+        self.pack_start(scroll, True, True, 0)
+
+        self.view = PDFViewer()
+        scroll.add(self.view)
+
+        self.show_all()
+
+    def load_info(self, number):
+        path = "file://" + os.path.join(DATA_DIR, str(number)) + ".pdf"
+        self.view.load_document(path)

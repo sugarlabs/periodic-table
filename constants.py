@@ -18,10 +18,16 @@
 # Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 # Boston, MA 02111-1307, USA.
 
+import os
+
 import gi
 gi.require_version("Gdk", "3.0")
 
 from gi.repository import Gdk
+
+
+LOCAL_DIR = os.path.dirname(os.path.realpath(__file__))
+DATA_DIR = os.path.join(LOCAL_DIR, "data")
 
 
 class Color:
