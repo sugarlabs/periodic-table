@@ -22,12 +22,29 @@ import os
 
 from constants import DATA_DIR
 from elements import ELEMENTS_DATA
-from pdf_viewer import PDFViewer
 
 import gi
 gi.require_version("Gtk", "3.0")
 
 from gi.repository import Gtk
+from gi.repository import EvinceDocument
+from gi.repository import EvinceView
+
+
+EvinceDocument.init()
+
+class PDFViewer(EvinceView.View):
+
+    def __init__(self):
+        EvinceView.View.__init__(self)
+
+        self.model = None
+
+    def load_document(self, file_path):
+        self.model = EvinceView.DocumentModel()
+        document = EvinceDocument.Document.factory_get_document(file_path)
+        self.model.set_document(document)
+        self.set_model(self.model)
 
 
 class InfoView(Gtk.VBox):

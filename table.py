@@ -368,8 +368,6 @@ class Table(CenterBox):
             label.props.xalign = 0.75
             self.grid.attach(label, 0, period * 2, 2, 2)
 
-        #adj = Gtk.Adjustment(273, 0, 6000, 1, 100)
-
         self.temp_scale = TempScale()
         self.temp_scale.connect("value-changed", self.__temp_changed)
         self.temp_scale.connect("reset", self.__reset_temp)
@@ -382,14 +380,12 @@ class Table(CenterBox):
         self.emit("element-selected", element)
 
     def __item_enter_cb(self, item):
-        #self.grid.remove(self.references)
-
         self.detailed_item = DetailedTableItem(item.element)
         self.grid.attach(self.detailed_item, 8, 3, 4, 4)
 
     def __item_leave_cb(self, item):
-        self.grid.remove(self.detailed_item)
-        #self.grid.attach(self.references, 8, 4, 12, 4)
+        if self.detailed_item is not None:
+            self.grid.remove(self.detailed_item)
 
         self.detailed_item = None
 
