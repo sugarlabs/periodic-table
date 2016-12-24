@@ -20,9 +20,9 @@
 
 import cairo
 
-from elements import Element
-from elements import Category
-from elements import ELEMENTS_DATA
+from periodic_elements import Element
+from periodic_elements import Category
+from periodic_elements import ELEMENTS_DATA
 from constants import Color
 from utils import get_color_by_type
 from utils import get_all_categories

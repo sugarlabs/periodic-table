@@ -21,7 +21,7 @@
 from gettext import gettext as _
 
 from constants import Color
-from elements import Category
+from periodic_elements import Category
 
 import gi
 gi.require_version("Gtk", "3.0")
