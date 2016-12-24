@@ -316,13 +316,14 @@ class ReferencesBox(Gtk.HBox):
         self.show_all()
 
 
-class Table(CenterBox):
+class Table(Gtk.ScrolledWindow):
 
     __gsignals__ = {
         "element-selected": (GObject.SIGNAL_RUN_FIRST, None, [int]),
     }
 
     def __init__(self):
+        Gtk.ScrolledWindow.__init__(self)
 
         self.grid = Gtk.Grid()
         self.grid.set_hexpand(True)
@@ -331,7 +332,8 @@ class Table(CenterBox):
         self.grid.set_column_spacing(1)
         self.grid.set_row_spacing(1)
 
-        CenterBox.__init__(self, self.grid)
+        self.cbox = CenterBox(self.grid)
+        self.add(self.cbox)
 
         self.detailed_item = None
         self.items = []

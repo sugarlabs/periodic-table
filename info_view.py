@@ -21,7 +21,7 @@
 import os
 
 from constants import DATA_DIR
-from elements import ELEMENTS_DATA
+from periodic_elements import ELEMENTS_DATA
 
 import gi
 gi.require_version("Gtk", "3.0")
