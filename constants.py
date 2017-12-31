@@ -53,4 +53,4 @@ class Color:
 
 class Screen:
     TABLE = 0
-    INFO  = 1
+    INFO = 1

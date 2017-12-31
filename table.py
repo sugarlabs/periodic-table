@@ -61,7 +61,7 @@ class TempScale(Gtk.HBox):
         self.area.set_size_request(ITEM_SIZE * 4, 1)
         self.area.add_events(Gdk.EventMask.BUTTON_PRESS_MASK |
                              Gdk.EventMask.BUTTON_RELEASE_MASK |
-                             Gdk.EventMask.BUTTON_MOTION_MASK);
+                             Gdk.EventMask.BUTTON_MOTION_MASK)
         self.area.connect("draw", self.__draw_cb)
         self.area.connect("motion-notify-event", self.__motion_cb)
         self.area.connect("button-release-event", self.__release_cb)
@@ -84,11 +84,15 @@ class TempScale(Gtk.HBox):
         bar_width = alloc.width - slider_width
         bar_height = 10
         bar_y = alloc.height / 2.0 - bar_height / 2.0
-        slider_x = (float(bar_width) / float(self.max_value)) * self.value + bar_x
+        slider_x = (bar_width / float(self.max_value)) * self.value + bar_x
         slider_y = alloc.height / 2.0 - slider_height / 2.0
 
         self.__draw_bg(context, bar_x, bar_y, bar_width, bar_height)
-        self.__draw_slider(context, slider_x, slider_y, slider_width, slider_height)
+        self.__draw_slider(
+            context,
+            slider_x, slider_y,
+            slider_width, slider_height
+        )
 
         self._bar_x = bar_x
         self._bar_width = bar_width
@@ -99,10 +103,26 @@ class TempScale(Gtk.HBox):
         alloc = self.area.get_allocation()
 
         lg = cairo.LinearGradient(x, y, width, height)
-        lg.add_color_stop_rgb(0.25 - (x / 4.0), 0.176470588235, 0.305882352941, 0.933333333333)
+        lg.add_color_stop_rgb(
+            0.25 - (x / 4.0),
+            0.176470588235,
+            0.305882352941,
+            0.933333333333
+        )
+
         lg.add_color_stop_rgb(0.5, 1.0, 1.0, 1.0)
-        lg.add_color_stop_rgb(0.75, 0.98431372549, 0.952941176471, 0.38431372549)
-        lg.add_color_stop_rgb(1.0, 0.819607843137, 0.133333333333, 0.164705882353)
+        lg.add_color_stop_rgb(
+            0.75,
+            0.98431372549,
+            0.952941176471,
+            0.38431372549
+        )
+        lg.add_color_stop_rgb(
+            1.0,
+            0.819607843137,
+            0.133333333333,
+            0.164705882353
+        )
 
         context.rectangle(x, y, width, height)
         context.set_source(lg)
@@ -114,7 +134,8 @@ class TempScale(Gtk.HBox):
         context.fill()
 
     def __motion_cb(self, widget, event):
-        self.__update_value(self.max_value / self._bar_width * (event.x - self._bar_x))
+        self.__update_value(self.max_value / self._bar_width *
+                            (event.x - self._bar_x))
 
     def __release_cb(self, widget, event):
         self.reset()
@@ -214,7 +235,7 @@ class TableItem(Gtk.EventBox):
         self.emit("selected")
 
     def set_temperature(self, temp=None):
-        if temp == None:
+        if temp is None:
             self._current_color = self.color
             label_color = Gdk.Color(0, 0, 0)
 
@@ -240,7 +261,10 @@ class DetailedTableItem(Gtk.EventBox):
     def __init__(self, element):
         Gtk.EventBox.__init__(self)
 
-        self.modify_bg(Gtk.StateType.NORMAL, get_color_by_type(element["category"]))
+        self.modify_bg(
+            Gtk.StateType.NORMAL,
+            get_color_by_type(element["category"])
+        )
 
         self.vbox = Gtk.VBox()
         self.add(self.vbox)
@@ -348,7 +372,8 @@ class Table(Gtk.ScrolledWindow):
             item.connect("mouse-enter", self.__item_enter_cb)
             item.connect("mouse-leave", self.__item_leave_cb)
 
-            if data["category"] == Category.ACTINIDE or data["category"] == Category.LANTHANIDE:
+            if (data["category"] == Category.ACTINIDE or
+                    data["category"] == Category.LANTHANIDE):
                 self.grid.attach(Gtk.VBox(), x, y, 2, 2)
                 y += 2
 

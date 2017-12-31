@@ -90,7 +90,7 @@ class PeriodicTable(activity.Activity):
             if self.info_view.get_parent() == self.box:
                 self.box.remove(self.info_view)
 
-            if self.table.get_parent() == None:
+            if self.table.get_parent() is None:
                 self.box.pack_start(self.table, True, True, 0)
                 self.box.reorder_child(self.table, 0)
 
@@ -101,7 +101,7 @@ class PeriodicTable(activity.Activity):
             if self.table.get_parent() == self.box:
                 self.box.remove(self.table)
 
-            if self.info_view.get_parent() == None:
+            if self.info_view.get_parent() is None:
                 self.box.pack_start(self.info_view, True, True, 0)
                 self.box.reorder_child(self.info_view, 0)
 
