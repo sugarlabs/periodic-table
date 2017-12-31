@@ -20,9 +20,10 @@
 
 from table import Table
 from info_view import InfoView
-from constants import Screen
+from constants import Screen, Color
 from utils import make_separator
-
+from toolbarbox import PeriodicTableToolbarBox
+import logging
 import gi
 gi.require_version("Gtk", "3.0")
 
@@ -31,7 +32,6 @@ from gi.repository import Gtk
 from sugar3.activity import activity
 from sugar3.graphics.toolbutton import ToolButton
 from sugar3.graphics.radiotoolbutton import RadioToolButton
-from sugar3.graphics.toolbarbox import ToolbarBox
 from sugar3.activity.widgets import StopButton
 from sugar3.activity.widgets import ActivityToolbarButton
 
@@ -47,6 +47,8 @@ class PeriodicTable(activity.Activity):
         self.set_canvas(self.box)
 
         self.make_toolbars()
+        self.get_toolbar_box().connect("searched-element",
+                                       self._searched_element_cb)
 
         self.table = Table()
         self.table.connect("element-selected", self._element_selected_cb)
@@ -56,7 +58,7 @@ class PeriodicTable(activity.Activity):
         self.set_screen(Screen.TABLE)
 
     def make_toolbars(self):
-        toolbarbox = ToolbarBox()
+        toolbarbox = PeriodicTableToolbarBox()
         self.set_toolbar_box(toolbarbox)
 
         toolbar = toolbarbox.toolbar
@@ -110,6 +112,13 @@ class PeriodicTable(activity.Activity):
     def _element_selected_cb(self, table, element):
         self.info_view.load_info(element)
         self.set_screen(Screen.INFO)
+
+    def _searched_element_cb(self, toolbar, found_elements):
+        for item in self.table.items:
+            if item.element["number"] not in found_elements:
+                item.modify_bg(Gtk.StateType.NORMAL, Color.SELECTED)
+            else:
+                item.modify_bg(Gtk.StateType.NORMAL, item.color)
 
     def _go_back(self, button):
         self.set_screen(Screen.TABLE)
