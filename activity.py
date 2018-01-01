@@ -23,7 +23,7 @@ from info_view import InfoView
 from constants import Screen, Color
 from utils import make_separator
 from toolbarbox import PeriodicTableToolbarBox
-import logging
+
 import gi
 gi.require_version("Gtk", "3.0")
 

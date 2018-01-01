@@ -19,7 +19,6 @@
 # Boston, MA 02111-1307, USA.
 
 from periodic_elements import ELEMENTS_DATA
-import logging
 import gi
 gi.require_version("Gtk", "3.0")
 
@@ -101,7 +100,6 @@ class PeriodicTableToolbarBox(ToolbarBox):
                 if match(pattern, element):
                     found_elements.append(element["number"])
 
-            logging.error(found_elements)
             self.emit("searched-element", found_elements)
 
     def _search_entry_changed_cb(self, search_entry):
