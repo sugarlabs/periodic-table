@@ -27,6 +27,8 @@ from gi.repository import Gtk, GObject
 from sugar3.graphics.toolbarbox import ToolbarBox
 from sugar3.graphics import iconentry
 
+import logging
+
 
 def match(pattern, element):
     # Keep it non case-sensitive
@@ -95,6 +97,7 @@ class PeriodicTableToolbarBox(ToolbarBox):
         pattern = search_entry.get_text()
         if self._autosearch_timer:
             GObject.source_remove(self._autosearch_timer)
+            self._autosearch_timer = None
             found_elements = []
             for key, element in ELEMENTS_DATA.iteritems():
                 if match(pattern, element):
@@ -102,19 +105,18 @@ class PeriodicTableToolbarBox(ToolbarBox):
             self.emit("searched-element", found_elements)
 
     def _search_entry_changed_cb(self, search_entry):
+        self.search_entry = search_entry
         if not search_entry.props.text:
-            search_entry.emit("activate")
+            search_entry.activate()
             return
 
         if self._autosearch_timer:
             GObject.source_remove(self._autosearch_timer)
-        self._autosearch_timer = GObject.timeout_add(1000,
-                                                     self._autosearch_timer_cb)
-
-    def _autosearch_timer_cb(self):
-        self._autosearch_timer = None
-        self.search_entry.emit("activate")
-        return False
+        self._autosearch_timer = GObject.timeout_add(
+            750,
+            self._search_entry_activated_cb,
+            search_entry
+        )
 
     def _add_widget(self, widget, expand=False):
         tool_item = Gtk.ToolItem()
