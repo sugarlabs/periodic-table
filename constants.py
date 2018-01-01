@@ -45,6 +45,7 @@ class Color:
     SYNTHETIC             = Gdk.Color(65535.0, 0.0, 10794.0)
 
     SELECTED              = Gdk.Color(60000.0, 60000.0, 60000.0)
+    GRAYED                = Gdk.Color(20000.0, 20000.0, 20000.0)
 
     SOLID  = Gdk.Color(0.0, 0.0, 0.0)
     LIQUID = Gdk.Color(0.0, 0.0, 56797.0)

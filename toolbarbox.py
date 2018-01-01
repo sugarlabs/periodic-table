@@ -90,21 +90,20 @@ class PeriodicTableToolbarBox(ToolbarBox):
         self.search_entry.connect('changed', self._search_entry_changed_cb)
         self.search_entry.add_clear_button()
         self._autosearch_timer = None
-        self._add_widget(self.search_entry, expand=True)
 
     def _search_entry_activated_cb(self, search_entry):
         pattern = search_entry.get_text()
         if self._autosearch_timer:
+            GObject.source_remove(self._autosearch_timer)
             found_elements = []
             for key, element in ELEMENTS_DATA.iteritems():
                 if match(pattern, element):
                     found_elements.append(element["number"])
-
             self.emit("searched-element", found_elements)
 
     def _search_entry_changed_cb(self, search_entry):
         if not search_entry.props.text:
-            search_entry.activate()
+            search_entry.emit("activate")
             return
 
         if self._autosearch_timer:
@@ -114,7 +113,7 @@ class PeriodicTableToolbarBox(ToolbarBox):
 
     def _autosearch_timer_cb(self):
         self._autosearch_timer = None
-        self.search_entry.activate()
+        self.search_entry.emit("activate")
         return False
 
     def _add_widget(self, widget, expand=False):

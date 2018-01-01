@@ -76,6 +76,8 @@ class PeriodicTable(activity.Activity):
         self.forward_button.connect("clicked", self._go_forward)
         toolbar.insert(self.forward_button, -1)
 
+        toolbarbox._add_widget(toolbarbox.search_entry, expand=True)
+
         toolbar.insert(make_separator(True), -1)
         toolbar.insert(StopButton(self), -1)
 
@@ -116,9 +118,11 @@ class PeriodicTable(activity.Activity):
     def _searched_element_cb(self, toolbar, found_elements):
         for item in self.table.items:
             if item.element["number"] not in found_elements:
-                item.modify_bg(Gtk.StateType.NORMAL, Color.SELECTED)
+                item.modify_bg(Gtk.StateType.NORMAL, Color.GRAYED)
+                item.active = False
             else:
                 item.modify_bg(Gtk.StateType.NORMAL, item.color)
+                item.active = True
 
     def _go_back(self, button):
         self.set_screen(Screen.TABLE)
