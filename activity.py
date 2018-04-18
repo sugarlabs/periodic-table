@@ -23,6 +23,7 @@ from info_view import InfoView
 from constants import Screen, Color
 from utils import make_separator
 from toolbarbox import PeriodicTableToolbarBox
+from fun_facts import *
 
 import gi
 gi.require_version("Gtk", "3.0")
@@ -75,6 +76,12 @@ class PeriodicTable(activity.Activity):
         self.forward_button.set_sensitive(False)
         self.forward_button.connect("clicked", self._go_forward)
         toolbar.insert(self.forward_button, -1)
+
+        self.fun_fact_btn = ToolButton()
+        self.fun_fact_btn.set_tooltip("Fun facts")
+        #image = Gtk.Image.new_from_file('fun_facts.svg')
+        self.fun_fact_btn.connect("clicked", self._fun_fact_cb)
+        toolbar.insert(self.fun_fact_btn, -1)
 
         toolbarbox._add_widget(toolbarbox.search_entry, expand=True)
 
@@ -129,3 +136,15 @@ class PeriodicTable(activity.Activity):
 
     def _go_forward(self, button):
         self.set_screen(Screen.INFO)
+
+    def _fun_fact_cb(self, button):
+        message = get_fact(Facts)
+        messagedialog = Gtk.MessageDialog(
+                                         self,
+                                         Gtk.DialogFlags.MODAL,
+                                         Gtk.MessageType.INFO,
+                                         message
+                                         )
+        messagedialog.run()
+        messagedialog.destroy()
+        
