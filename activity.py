@@ -18,11 +18,14 @@
 # Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 # Boston, MA 02111-1307, USA.
 
+import random
+
 from table import Table
 from info_view import InfoView
 from constants import Screen, Color
 from utils import make_separator
 from toolbarbox import PeriodicTableToolbarBox
+from fun_facts import Facts
 
 import gi
 gi.require_version("Gtk", "3.0")
@@ -75,6 +78,13 @@ class PeriodicTable(activity.Activity):
         self.forward_button.set_sensitive(False)
         self.forward_button.connect("clicked", self._go_forward)
         toolbar.insert(self.forward_button, -1)
+
+        self.fun_fact_button = ToolButton()
+        self.fun_fact_button.set_label("Fun facts")
+        self.fun_fact_button.set_tooltip("Fun facts")
+        #self.fun_fact_button.add(Gtk.Image.new_from_file(''))
+        self.fun_fact_button.connect("clicked", self._fun_fact_cb)
+        toolbar.insert(self.fun_fact_button, -1)
 
         toolbarbox._add_widget(toolbarbox.search_entry, expand=True)
 
@@ -129,3 +139,17 @@ class PeriodicTable(activity.Activity):
 
     def _go_forward(self, button):
         self.set_screen(Screen.INFO)
+
+    def _fun_fact_cb(self, button):
+        current_fact = None
+        if button.get_sensitive():
+            random.shuffle(Facts)
+            current_fact = Facts[random.randrange(0, len(Facts))]
+            message_dialog = Gtk.MessageDialog(
+                                              None,
+                                              Gtk.MessageType.INFO,
+                                              Gtk.ButtonsType.OK,
+                                              current_fact
+                                              )
+            message_dialog.run()
+        message_dialog.destroy()
