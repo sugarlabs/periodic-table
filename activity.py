@@ -81,8 +81,8 @@ class PeriodicTable(activity.Activity):
 
         self.fun_fact_btn = ToolButton()
         self.fun_fact_btn.set_tooltip("Fun facts")
-        #image = Gtk.Image.new_from_file('fun_facts.svg')
-        self.fun_fact_btn.connect("clicked", self._fun_fact_cb)
+        self.fun_fact_btn.add(Gtk.Image.new_from_file('data/fun_facts.svg'))
+        self.fun_fact_btn.connect("clicked", self._fun_fact_cb, Facts)
         toolbar.insert(self.fun_fact_btn, -1)
 
         toolbarbox._add_widget(toolbarbox.search_entry, expand=True)
@@ -139,13 +139,23 @@ class PeriodicTable(activity.Activity):
     def _go_forward(self, button):
         self.set_screen(Screen.INFO)
 
-    def _fun_fact_cb(self, button):
-        message = get_fact(Facts)
-        messagedialog = Gtk.MessageDialog(
-                                         self,
-                                         Gtk.DialogFlags.MODAL,
-                                         Gtk.MessageType.INFO,
-                                         message
-                                         )
-        messagedialog.run()
-        messagedialog.destroy()
+    def _fun_fact_cb(self, button, fact_list):
+        message = get_fact(fact_list)
+        dialog = Gtk.Dialog(
+                           "Fun fact",
+                           None,
+                           Gtk.DialogFlags.MODAL,
+                           (Gtk.STOCK_OK, Gtk.ResponseType.OK)
+                           )
+        vbox = Gtk.VBox(False, 12)
+        vbox.set_border_width(10)
+        dialog.vbox.pack_start(vbox, True, True, 0)
+        vbox.show()
+
+        label = Gtk.Label(str(message))
+        label.set_selectable(True)
+        vbox.pack_start(label, True, True, 0)
+        label.show()
+
+        dialog.run()
+        dialog.destroy()
