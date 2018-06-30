@@ -80,8 +80,9 @@ class PeriodicTable(activity.Activity):
         toolbar.insert(self.forward_button, -1)
 
         self.fun_fact_btn = ToolButton()
+        fun_fact_img = Gtk.Image.new_from_file("activity/fun_facts.svg")
         self.fun_fact_btn.set_tooltip("Fun facts")
-        self.fun_fact_btn.add(Gtk.Image.new_from_file('data/fun_facts.svg'))
+        self.fun_fact_btn.set_icon_widget(fun_fact_img)
         self.fun_fact_btn.connect("clicked", self._fun_fact_cb, Facts)
         toolbar.insert(self.fun_fact_btn, -1)
 

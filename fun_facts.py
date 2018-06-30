@@ -77,5 +77,3 @@ def get_fact(fact_list):
         current_fact = random.choice(fact_list)
         random.shuffle(fact_list)
     return current_fact
-
-
