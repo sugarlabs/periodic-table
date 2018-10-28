@@ -22,7 +22,7 @@ from periodic_elements import ELEMENTS_DATA
 import gi
 gi.require_version("Gtk", "3.0")
 
-from gi.repository import Gtk, GObject
+from gi.repository import Gtk, GObject, GLib
 
 from sugar3.graphics.toolbarbox import ToolbarBox
 from sugar3.graphics import iconentry
@@ -96,7 +96,7 @@ class PeriodicTableToolbarBox(ToolbarBox):
     def _search_entry_activated_cb(self, search_entry):
         pattern = search_entry.get_text()
         if self._autosearch_timer:
-            GObject.source_remove(self._autosearch_timer)
+            GLib.source_remove(self._autosearch_timer)
             self._autosearch_timer = None
             found_elements = []
             for key, element in ELEMENTS_DATA.iteritems():
@@ -109,8 +109,8 @@ class PeriodicTableToolbarBox(ToolbarBox):
             self._search_entry_activated_cb(search_entry)
 
         if self._autosearch_timer:
-            GObject.source_remove(self._autosearch_timer)
-        self._autosearch_timer = GObject.timeout_add(
+            GLib.source_remove(self._autosearch_timer)
+        self._autosearch_timer = GLib.timeout_add(
             750,
             self._search_entry_activated_cb,
             search_entry
