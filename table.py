@@ -36,6 +36,7 @@ from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import Pango
 from gi.repository import GObject
+from gi.repository import GLib
 
 ITEM_SIZE = min(Gdk.Screen.width() / 21, Gdk.Screen.height() / 13)
 
@@ -146,9 +147,9 @@ class TempScale(Gtk.HBox):
         self.entry.set_text(text)
 
         if self._reset_id is not None:
-            GObject.source_remove(self._reset_id)
+            GLib.source_remove(self._reset_id)
 
-        self._reset_id = GObject.timeout_add(2000, self.reset)
+        self._reset_id = GLib.timeout_add(2000, self.reset)
 
     def __entry_activated_cb(self, widget):
         self.__update_value(int(self.entry.get_text()))
@@ -165,11 +166,11 @@ class TempScale(Gtk.HBox):
 
         self.emit("value-changed", self.value)
 
-        GObject.idle_add(self.queue_draw)
+        GLib.idle_add(self.queue_draw)
 
     def reset(self):
         if self._reset_id is not None:
-            GObject.source_remove(self._reset_id)
+            GLib.source_remove(self._reset_id)
             self._reset_id = None
 
         self.emit("reset")
@@ -418,10 +419,10 @@ class Table(Gtk.ScrolledWindow):
         self.detailed_item = None
 
     def __temp_changed(self, scale, value):
-        GObject.idle_add(self.update_temperature, value)
+        GLib.idle_add(self.update_temperature, value)
 
     def __reset_temp(self, scale):
-        GObject.idle_add(self.update_temperature, None)
+        GLib.idle_add(self.update_temperature, None)
 
     def update_temperature(self, temp):
         for item in self.items:
