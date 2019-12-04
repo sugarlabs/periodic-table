@@ -3,4 +3,4 @@ name = Periodic Table
 activity_version = 1
 bundle_id = org.sugarlabs.PeriodicTable
 icon = icon
-exec = sugar-activity activity.PeriodicTable 
+exec = sugar-activity3 activity.PeriodicTable 

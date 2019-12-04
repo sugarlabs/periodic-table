@@ -405,7 +405,7 @@ class Table(Gtk.ScrolledWindow):
         self.show_all()
 
     def __item_selected_cb(self, item):
-        element = ELEMENTS_DATA.values().index(item.element) + 1
+        element = list(ELEMENTS_DATA.values()).index(item.element) + 1
         self.emit("element-selected", element)
 
     def __item_enter_cb(self, item):
