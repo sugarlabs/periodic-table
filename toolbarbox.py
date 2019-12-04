@@ -99,7 +99,7 @@ class PeriodicTableToolbarBox(ToolbarBox):
             GLib.source_remove(self._autosearch_timer)
             self._autosearch_timer = None
             found_elements = []
-            for key, element in ELEMENTS_DATA.iteritems():
+            for key, element in ELEMENTS_DATA.items():
                 if match(pattern, element):
                     found_elements.append(element["number"])
             self.emit("searched-element", found_elements)
