@@ -1,0 +1,12 @@
+2
+
+* Add search bar (Carol Chen),
+* Update README (Ibiam Chihurumnaya),
+* Port from GObject to GLib (Tonatiuh García),
+* Fix PyGI warnings (Ibiam Chihurumnaya),
+* Add screenshots (Aryan Sharma),
+* Port to Python 3 (Bottersnike),
+
+1
+
+* Initial version
