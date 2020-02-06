@@ -5,3 +5,4 @@ bundle_id = org.sugarlabs.PeriodicTable
 icon = icon
 exec = sugar-activity3 activity.PeriodicTable 
 license = GPLv3+
+repository = https://github.com/sugarlabs/periodic-table.git
