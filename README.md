@@ -14,3 +14,15 @@ Clicking on an element leads to more information about that element.
 
 
 If you know the first few letters of an element and you don't know the rest, the search bar makes finding that element easy.
+
+Reporting Bugs
+--------------
+
+Bugs can be reported in the
+[issues tab](https://github.com/sugarlabs/periodic-table/issues)
+of this repository.
+
+Contributing
+------------
+
+Please consider [contributing](https://github.com/sugarlabs/sugar-docs/blob/master/src/contributing.md) to the project with your ideas and your code.
