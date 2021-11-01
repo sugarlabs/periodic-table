@@ -15,6 +15,13 @@ Clicking on an element leads to more information about that element.
 
 If you know the first few letters of an element and you don't know the rest, the search bar makes finding that element easy.
 
+Dependencies
+--------------
+
+**Debian like distros**<br/>
+Please make sure you have installed,
+- `gir1.2-evince-3.0`
+
 Reporting Bugs
 --------------
 
