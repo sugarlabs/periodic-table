@@ -22,6 +22,12 @@ Dependencies
 Please make sure you have installed,
 - `gir1.2-evince-3.0`
 
+How to Use?
+--------------
+* [How to Get Sugar on sugarlabs.org](https://sugarlabs.org/),
+* [How to use Sugar](https://help.sugarlabs.org/),
+* For more detailed explanation on how to go about using the SugarLab environment [click here](https://computersciencethings.files.wordpress.com/2022/06/sugar-labs-walkthrough.pdf)
+
 Reporting Bugs
 --------------
 
